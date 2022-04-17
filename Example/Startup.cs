@@ -1,7 +1,10 @@
+using Example.Configuration;
+using Example.Data;
 using Example.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -62,6 +65,16 @@ namespace Example
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+
+            var options = Configuration.Get<Options>();
+
+            services.AddDbContext<ProfilesDbContext>(o =>
+                o.UseNpgsql(
+                    options.ConnectionString,
+                    builder =>
+                    {
+                        builder.UseNodaTime();
+                    }));
 
             services.AddScoped<IProfileService, ProfileService>();
         }

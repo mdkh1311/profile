@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Example.Data;
 using Example.Models;
 
 namespace Example.Services
@@ -10,14 +12,23 @@ namespace Example.Services
     
     public class ProfileService : IProfileService
     {
+        private readonly ProfilesDbContext context;
+        
+        public ProfileService(ProfilesDbContext context)
+        {
+            this.context = context;
+        }
+        
         public IEnumerable<Profile> GetProfiles()
         {
-            return new[]
-            {
-                new Profile { Name = "John", Age = 25, Gender = "Male", Interests = new[] {"Dinosaurs", "Penguins"} },
-                new Profile { Name = "Mary", Age = 28, Gender = "Female", Interests = new[] {"Cooking"} },
-                new Profile { Name = "Dustin", Age = 22, Gender = "Male", Interests = new[] {"Reading", "Walking"} }
-            };
+            return context.Profile.Select(o => new Profile
+                {
+                    Name = o.Name,
+                    Age = o.Age,
+                    Interests = o.Interests,
+                    Gender = o.Gender
+                })
+                .ToList();
         } 
     }
 }
