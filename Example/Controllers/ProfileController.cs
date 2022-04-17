@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Example.Models;
 using Example.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace Example.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Profile> GetProfiles()
+        public async Task<IEnumerable<Profile>> GetProfiles()
         {
-            return profileService.GetProfiles();
+            return await profileService.GetProfilesAsync();
         }
     }
 }

@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Example.Data;
 using Example.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Example.Services
 {
     public interface IProfileService
     {
-        IEnumerable<Profile> GetProfiles();
+        Task<IEnumerable<Profile>> GetProfilesAsync();
     }
     
     public class ProfileService : IProfileService
@@ -19,16 +21,16 @@ namespace Example.Services
             this.context = context;
         }
         
-        public IEnumerable<Profile> GetProfiles()
+        public async Task<IEnumerable<Profile>> GetProfilesAsync()
         {
-            return context.Profile.Select(o => new Profile
+            return await context.Profile.Select(o => new Profile
                 {
                     Name = o.Name,
                     Age = o.Age,
                     Interests = o.Interests,
                     Gender = o.Gender
                 })
-                .ToList();
+                .ToListAsync();
         } 
     }
 }
