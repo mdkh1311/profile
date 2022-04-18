@@ -77,6 +77,7 @@ namespace Example
                     }));
 
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IBioService, BioService>();
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Example.Data
         
         public DbSet<Profile> Profile { get; set; }
         
+        public DbSet<Bio> Bio{ get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             base.OnConfiguring(builder);

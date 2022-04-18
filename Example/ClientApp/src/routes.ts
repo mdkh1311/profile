@@ -1,13 +1,13 @@
-import { generatePath, useMatch } from 'react-router-dom';
+import { generatePath, useMatch } from "react-router-dom";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 type ExtractRouteParams<T> = string extends T
   ? Record<string, string | number | boolean>
   : T extends `${infer _Start}:${infer Param}/${infer Rest}`
-    ? { [k in Param | keyof ExtractRouteParams<Rest>]: string | number | boolean }
-    : T extends `${infer _Start}:${infer Param}`
-      ? { [k in Param]: string | number | boolean }
-      : {};
+  ? { [k in Param | keyof ExtractRouteParams<Rest>]: string | number | boolean }
+  : T extends `${infer _Start}:${infer Param}`
+  ? { [k in Param]: string | number | boolean }
+  : {};
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 type PathParams<P extends string> = ExtractRouteParams<P>;
@@ -29,6 +29,7 @@ export const useTypedRouteMatch = <T extends string>(route: NamedRoute<T>) => {
 };
 
 export const routes = {
-  overview: new NamedRoute('/overview'),
-  profiles: new NamedRoute('/profiles'),
+  overview: new NamedRoute("/overview"),
+  profiles: new NamedRoute("/profiles"),
+  bios: new NamedRoute("/bios"),
 };
